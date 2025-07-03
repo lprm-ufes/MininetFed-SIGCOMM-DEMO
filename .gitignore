@@ -10,21 +10,16 @@ env_key_gen/
 temp/ckksfed_fhe/pasta
 data_temp/
 experiments_out/
-# client_log/
+client_log/
 local_env/
 experiments_queue/
 docs/env/
 envs/
 sbrc/
-data/
+sigcomm/
 
-# client/data/cifar-10-batches-py/
-# client/data/mnist.npz
+client/data/cifar-10-batches-py/
+client/data/mnist.npz
 # client/data/*.csv
-# client/data/*.zip
-# data/
-client_log/
+client/data/*.zip
 ~client_log/graph.py
-TODO.md
-mininetfed.egg-info/
-build/
