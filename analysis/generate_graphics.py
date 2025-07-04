@@ -97,7 +97,7 @@ class Graphics:
             plt.xlabel('Round')
             plt.ylabel('Difference in the Number of Customers Selected')
             plt.title(
-                f'Graphic of Number of Selected Clients Relative to "{ref_item["name"]}"')
+                f'Graph of Number of Selected Clients Relative to "{ref_item["name"]}"')
             plt.legend()
             plt.show()
 
