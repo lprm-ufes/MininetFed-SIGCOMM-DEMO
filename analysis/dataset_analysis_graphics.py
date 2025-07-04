@@ -21,9 +21,9 @@ class DatasetAnalysisGraphics:
         if y_labels is not None:
             plt.xticks(classes, y_labels)
 
-        plt.xlabel('Classe', fontsize=18)
-        plt.ylabel('Quantidade de Casos', fontsize=18)
-        plt.title(f'Quantidade de casos por Classe nos Dados de Treino (cliente {id})', fontsize=16)
+        plt.xlabel('Class', fontsize=18)
+        plt.ylabel('Number of Cases', fontsize=18)
+        plt.title(f'Number of Cases per Class in Training Data (client {id})', fontsize=16)
         plt.tick_params(labelsize=16)
 
         plt.show()
@@ -37,9 +37,9 @@ class DatasetAnalysisGraphics:
         if y_labels is not None:
             plt.xticks(classes, y_labels)
 
-        plt.xlabel('Classe', fontsize=18)
-        plt.ylabel('Quantidade de Casos', fontsize=18)
-        plt.title(f'Quantidade de Itens de uma Dada Classe nos Dados de Teste (cliente {id})', fontsize=16)
+        plt.xlabel('Class', fontsize=18)
+        plt.ylabel('Number of Cases', fontsize=18)
+        plt.title(f'Number of Items of a Specific Class in the Test Data (client {id})', fontsize=16)
         plt.tick_params(labelsize=16)
 
         plt.show()
@@ -98,7 +98,7 @@ class DatasetAnalysisGraphics:
       for id, trainer in self.trainers.items():
         plt.figure(figsize=(15,10))
         plt.hist(trainer.x_train, bins=30)
-        plt.title('Histograma')
+        plt.title('Histogram')
         plt.show()
 
   # Boxplot
@@ -116,5 +116,5 @@ class DatasetAnalysisGraphics:
         corr = df.corr()
         cax = plt.matshow(corr, cmap='coolwarm')
         plt.colorbar(cax)
-        plt.title('Matriz de Correlação')
+        plt.title('Correlation Matrix')
         plt.show()

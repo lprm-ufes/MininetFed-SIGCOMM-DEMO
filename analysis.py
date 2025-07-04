@@ -11,7 +11,7 @@ DATASET_ANALYSIS = True
 try:
     from client import Trainer
 except Exception as inst:
-    print("Não foi possível importar o Trainer. Gráficos de análise de dataset (datasets_analysis) estão desabilitados")
+    print("Unable to import Trainer. Dataset analysis graphs (datasets_analysis) are disabled")
     print(type(inst))
     print(inst.args)
     print(inst)
