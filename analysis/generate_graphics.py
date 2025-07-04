@@ -66,9 +66,9 @@ class Graphics:
             df = item['df']
             # for column in df.columns[2:]:  # Ignorando as colunas 'round' e 'round Delta T'
             plt.plot(df['round'], df['n_selected'], label=item['name'])
-        plt.xlabel('round')
-        plt.ylabel('N clientes selecionados')
-        plt.title('Número de clientes selecionados por round')
+        plt.xlabel('Round')
+        plt.ylabel('Number of Selected Clients')
+        plt.title('Number of Selected Clients per Round')
         plt.legend()
         plt.show()
 
@@ -94,10 +94,10 @@ class Graphics:
             y_max = int(max(ref_df['n_selected'] - df['n_selected']))
             plt.yticks(np.arange(y_min, y_max+1, step=1))
 
-            plt.xlabel('round')
-            plt.ylabel('Diferença no Nº clientes selecionados')
+            plt.xlabel('Round')
+            plt.ylabel('Difference in the Number of Customers Selected')
             plt.title(
-                f'Gráfico de Nº clientes selecionados relativo à "{ref_item["name"]}"')
+                f'Graphic of Number of Selected Clients Relative to "{ref_item["name"]}"')
             plt.legend()
             plt.show()
 
@@ -133,8 +133,8 @@ class Graphics:
             df = item['df']
             plt.plot(df['round'], df['deltaT'], label=item['name'])
 
-        plt.xlabel('round', fontsize=18)
-        plt.ylabel('Delta T (milisegundos)', fontsize=18)
+        plt.xlabel('Round', fontsize=18)
+        plt.ylabel('Delta T (milliseconds)', fontsize=18)
         plt.legend(fontsize=16)
         plt.tick_params(labelsize=16)
         plt.show()
@@ -161,13 +161,13 @@ class Graphics:
         # name = "Dados non-iid"
         # name = "Dados Desbalanceados"
         name = item['from_yaml']['chart_title']
-        plt.xlabel('Rodada', fontsize=28)
-        plt.ylabel('Acurácia', fontsize=28)
-        plt.title(f'Comparação de Acurácia por Rodada \n {name}', fontsize=30)
+        plt.xlabel('Round', fontsize=28)
+        plt.ylabel('Accuracy', fontsize=28)
+        plt.title(f'Accuracy Comparison by Round \n {name}', fontsize=30)
         plt.xticks(np.arange(y_min+1, y_max+1, step=2))
         plt.legend(fontsize=26)
         plt.tick_params(labelsize=26)
-        plt.savefig(f"acuracia {name}.eps",
+        plt.savefig(f"accuracy_{name}.eps",
                     bbox_inches='tight')
         plt.show()
 
@@ -296,10 +296,10 @@ class Graphics:
                          f'{energy:.2f}',                    # Texto formatado
                          ha='center', va='bottom', fontsize=30)
 
-            plt.xlabel('Sensores', fontsize=30)
-            plt.ylabel('Energia Consumida (Wh)', fontsize=24)
+            plt.xlabel('Sensors', fontsize=30)
+            plt.ylabel('Energy Consumed (Wh)', fontsize=24)
             plt.title(
-                f"Consumo Total de Energia no Experimento \n {item['name']}", fontsize=30, pad=20)
+                f"Total Energy Consumption in the Experiment \n {item['name']}", fontsize=30, pad=20)
             # plt.xticks(fontsize=14)
             plt.xticks(rotation=45, fontsize=30)  # Rotaciona 45 graus
 
@@ -308,7 +308,7 @@ class Graphics:
             # plt.legend(title="Clientes", fontsize=12, title_fontsize=14)
 
             plt.tight_layout()
-            plt.savefig(f"consumo total {item['name']}.eps",
+            plt.savefig(f"total_consumption_{item['name']}.eps",
                         bbox_inches='tight')
             plt.show()
 
@@ -418,16 +418,16 @@ class Graphics:
         for idx, experiment in reversed(list(enumerate(experiments.__reversed__()))):
             experiments_matrix = experiments[experiment]
 
-            max_tamanho = max(len(line) for line in experiments_matrix)
+            max_size = max(len(line) for line in experiments_matrix)
 
-            acc = np.zeros(max_tamanho)
-            acc_qtd = np.zeros(max_tamanho)
-            mean = np.zeros(max_tamanho)
-            error = np.zeros(max_tamanho)
-            error_qtd = np.zeros(max_tamanho)
-            std_d = np.zeros(max_tamanho)
+            acc = np.zeros(max_size)
+            acc_qtd = np.zeros(max_size)
+            mean = np.zeros(max_size)
+            error = np.zeros(max_size)
+            error_qtd = np.zeros(max_size)
+            std_d = np.zeros(max_size)
 
-            for i in range(max_tamanho):
+            for i in range(max_size):
                 for line in experiments_matrix:
                     if len(line) > i:
                         acc[i] += line[i]
@@ -435,32 +435,32 @@ class Graphics:
 
             # print(acc)
             # print(acc_qtd)
-            for i in range(max_tamanho):
+            for i in range(max_size):
                 mean[i] = acc[i] / acc_qtd[i]
 
-            for i in range(max_tamanho):
+            for i in range(max_size):
                 for line in experiments_matrix:
                     if len(line) > i:
                         error[i] += (line[i] - mean[i])**2
                         error_qtd[i] += 1
 
-            for i in range(max_tamanho):
+            for i in range(max_size):
                 if (error_qtd[i] - 1.0) > 0:
                     std_d[i] = math.sqrt(error[i] / (error_qtd[i] - 1.0))
 
             # plt.figure(figsize=(10, 6))
             # plt.fill_between(range(max_tamanho), mean -
             #                  std_d, mean+std_d, alpha=.3, color=possible_colors[idx % len(possible_colors)])
-            plt.fill_between(range(max_tamanho), mean -
+            plt.fill_between(range(max_size), mean -
                              std_d, mean+std_d, alpha=.3)
             # plt.plot(range(max_tamanho), mean,
             #          label=f"{experiment}", color=possible_colors[idx % len(possible_colors)])
-            plt.plot(range(max_tamanho), mean,
+            plt.plot(range(max_size), mean,
                      label=f"{experiment}")
 
             plt.xlabel('Round', fontsize=18)
             plt.ylabel('Accuracy', fontsize=18)
-            plt.title('Mean accuracy in K-folds with standard deviation')
+            plt.title('Mean accuracy in K-folds with Standard Deviation')
             plt.legend(fontsize=16)
             plt.tick_params(labelsize=16)
         plt.savefig(f"experiments_out/{'out'}.pdf")
