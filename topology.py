@@ -37,7 +37,7 @@ experiment_name = ""
 
 
 def topology():
-    # Configurações iniciais
+
     t = 5
     if '-10' in sys.argv:
         t = 10
@@ -80,7 +80,6 @@ def topology():
     config = path + '/rules/p4_commands.txt'
     args = {'json': json_file, 'switch_config': config}
     mode = 2
-
     dimage = 'ramonfontes/bmv2:lowpan'
 
     info('*** Adding Nodes...\n')
@@ -109,7 +108,7 @@ def topology():
         clients.append(net.addSensor(f'sta{i}', privileged=True, environment={"DISPLAY": ":0"},
                                      cls=ClientSensor, script="client/client.py",
                                      voltage=3.7,
-                                     battery_capacity=15,
+                                     battery_capacity=0.01,
                                      ip6=f'fe80::{i+3}/64',
                                      numeric_id=i-1,
                                      args=client_args, volumes=volumes,
@@ -126,9 +125,8 @@ def topology():
     info('*** Creating links...\n')
     net.addLink(s1, h1)
     net.addLink(ap1, srv1, cls=LoWPAN)
-    
 
-    net.addLink(ap1, clients[5], cls=LoWPAN) 
+    net.addLink(ap1, clients[5], cls=LoWPAN)
     net.addLink(clients[0], clients[1], cls=LoWPAN)
     net.addLink(clients[1], clients[2], cls=LoWPAN)
     net.addLink(clients[2], clients[4], cls=LoWPAN)
@@ -183,13 +181,12 @@ def topology():
                    experiment_controller=net.experiment_controller)
 
     h1.cmd("ifconfig h1-eth1 down")
-    
+
     # Inicia o gráfico numa thread
     if '-p' not in sys.argv:
         info('*** Starting plot...\n')
         thread_plot = threading.Thread(target=iniciar_plot, args=(clients,plot_title,), daemon=True)
         thread_plot.start()
-
 
     info('*** Running Autostop...\n')
     net.wait_experiment()
