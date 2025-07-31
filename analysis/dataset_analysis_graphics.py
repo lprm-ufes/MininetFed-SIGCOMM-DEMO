@@ -91,8 +91,6 @@ class DatasetAnalysisGraphics:
     plt.savefig(f"images_english/{self.mode}_teste.pdf")
 
 
-
-
   # Histograma
   def histogram(self):
       for id, trainer in self.trainers.items():

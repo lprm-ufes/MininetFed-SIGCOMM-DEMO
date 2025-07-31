@@ -5,13 +5,12 @@ from analysis.config import Config
 from analysis.process_log import File
 from analysis.generate_graphics import Graphics
 from analysis.dataset_analysis_graphics import DatasetAnalysisGraphics
-# from .federated.experiment import Experiment
 
 DATASET_ANALYSIS = True
 try:
     from client import Trainer
 except Exception as inst:
-    print("Não foi possível importar o Trainer. Gráficos de análise de dataset (datasets_analysis) estão desabilitados")
+    print("Unable to import Trainer. Dataset analysis graphs (datasets_analysis) are disabled.")
     print(type(inst))
     print(inst.args)
     print(inst)
@@ -140,8 +139,7 @@ if __name__ == '__main__':
     n = len(sys.argv)
 
     #  check args
-    if (n < 2):
-        # print("correct use: sudo python3 analysis.py <experiments_folder> <graphics.yaml>")
+    if n < 2:
         print("alternative: correct use: sudo python3 analysis.py <graphics.yaml> ...")
         exit()
 

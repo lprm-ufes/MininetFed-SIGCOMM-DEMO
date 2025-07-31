@@ -25,9 +25,7 @@ volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw"]
 
 experiment_config = {
     "ipBase": "10.0.0.0/24",
-    # "iot_module":"mac802154_hwsim",
     "experiments_folder": "sigcomm",
-    # "experiment_name": "ipv4_test",
     "date_prefix": False
 }
 
@@ -42,35 +40,31 @@ def topology():
     if '-10' in sys.argv:
         t = 10
 
-    # Executa o caso de uso All
-    if '--case_all' in sys.argv or '-a' in sys.argv:
+    if '--all' in sys.argv or '-a' in sys.argv:
         server_args = {"min_trainers": 11, "num_rounds": 20,
                        "stop_acc": 0.999, 'client_selector': 'All', 'aggregator': "FedAvg"}
         client_args = {"mode": 'random same_samples',
                        'num_samples': 15000, "trainer_class": "TrainerMNIST"}
-        experiment_name = 'sbrc_mnist_select_all_iid'
+        experiment_name = 'mnist_select_all_iid'
         plot_title = 'Battery Consumption Selection of all clients'
-    # Executa o caso de uso Random
-    elif '--case_random' in sys.argv or '-r' in sys.argv:
+    elif '--random' in sys.argv or '-r' in sys.argv:
         server_args = {"min_trainers": 8, "num_rounds": 20,
                        "stop_acc": 0.99, 'client_selector': 'Random', 'aggregator': "FedAvg"}
         client_args = {"mode": 'random same_samples',
                        'num_samples': 15000, "trainer_class": "TrainerMNIST"}
-        experiment_name = 'sbrc_mnist_select_random_5_iid'
+        experiment_name = 'mnist_select_random_5_iid'
         plot_title = 'Battery Consumption Random Client Selection'
-    # Executa o caso de uso Energy
-    elif '--case_energy' in sys.argv or '-e' in sys.argv:
+    elif '--energy' in sys.argv or '-e' in sys.argv:
         server_args = {"min_trainers": 8, "num_rounds": 20,
                        "stop_acc": 0.99, 'client_selector': 'LeastEnergyConsumption', 'aggregator': "FedAvg"}
         client_args = {"mode": 'random same_samples',
                        'num_samples': 15000, "trainer_class": "TrainerMNIST"}
-        experiment_name = 'sbrc_mnist_select_energy_iid'
+        experiment_name = 'mnist_select_energy_iid'
         plot_title = 'Battery Consumption Energy Consumption Client Selection'
     else:
         raise Exception(
-            "É preciso selecionar um caso para executar (--case_all, --case_random, ou --case_energy)\n")
+            "Please select a case to run using one of the following options: --all, --random, or --energy.\n")
 
-    # Instanciação da rede
     net = MininetFed(**experiment_config, controller=[], experiment_name=experiment_name,
                      default_volumes=volumes, topology_file=sys.argv[0])
 
@@ -182,7 +176,7 @@ def topology():
 
     h1.cmd("ifconfig h1-eth1 down")
 
-    # Inicia o gráfico numa thread
+    # Start the graph in a thread
     if '-p' not in sys.argv:
         info('*** Starting plot...\n')
         thread_plot = threading.Thread(target=iniciar_plot, args=(clients,plot_title,), daemon=True)

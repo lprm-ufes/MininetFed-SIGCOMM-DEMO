@@ -18,7 +18,7 @@ Go to https://github.com/lprm-ufes/MininetFed/ and download the v1.0.2 SIGCOMM r
 Run the topology_all.py file using the execution script as shown below
 
 ```shell
-sudo python3 topology.py [--case_all|--case_random|--case_energy]
+sudo python3 topology.py [--all|--random|--energy]
 ```
 
 After running the command, the network and devices will be instantiated. After a few seconds, multiple Xterm windows will open as shown in the figure below
@@ -29,7 +29,7 @@ In the terminal where the command was executed, the message _Waiting for message
 
 <img src="https://github.com/lprm-ufes/MininetFed-LoWPAN/blob/topology-unico/images/terminal.png" alt=""/>
 
-After finishing the experiment, the following files will be in the directory `sbrc/sbrc_mnist_select_[all|random|energy]`
+After finishing the experiment, the following files will be in the directory `sigcomm/mnist_select_[all|random|energy]`
 
 <img src="https://github.com/lprm-ufes/MininetFed-LoWPAN/blob/topology-unico/images/arquivos.png" alt=""/>
 
@@ -40,7 +40,7 @@ After finishing the experiment, the following files will be in the directory `sb
 ```
 
 ```shell
-python analysis.py [casos_de_uso/sbrc_2025/energia_all.yaml | casos_de_uso/sbrc_2025/energia_random.yaml | casos_de_uso/sbrc_2025/energia_energy.yaml]
+python analysis.py [use_cases/all.yaml | use_cases/energia_random.yaml | use_cases/energy.yaml]
 ```
 
 After execution, a window with the graph is expected to open as shown in the following figure:
@@ -58,15 +58,5 @@ An .eps file is also generated in the root directory.
 > ```
 
 ```shell
-python analysis.py casos_de_uso/sbrc_2025/desempenho.yaml
+python analysis.py use_cases/performance.yaml
 ```
-
-# Troubleshooting
-
-If any problem occurs during execution, use the following command to delete the containers and clean mininet:
-
-```shell
-./script/clean.sh
-```
-
-After cleaning, try running again.
