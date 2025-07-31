@@ -19,7 +19,7 @@ sudo python3 topology.py [--all|--random|--energy]
 
 After running the command, the network and devices will be instantiated. After a few seconds, multiple Xterm windows will open as shown in the figure below
 
-<img src="https://github.com/lprm-ufes/MininetFed-SIGCOMM-DEMO/blob/main/images/figure.png" width="600" alt=""/>
+<img src="https://github.com/lprm-ufes/MininetFed-SIGCOMM-DEMO/blob/main/images/figure.png" alt=""/>
 
 In the terminal where the command was executed, the message _Waiting for messages_ will appear, indicating that MininetFed is waiting for the experiment's completion message.
 
