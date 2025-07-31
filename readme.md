@@ -7,7 +7,7 @@
 - +6.0.0 kernel
 - MininetFed - https://github.com/lprm-ufes/MininetFed/tree/v1.0.3
 
-## Running Experiments
+# Running Experiments
 
 ## Selection of Clients
 
