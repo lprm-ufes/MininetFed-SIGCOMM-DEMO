@@ -17,7 +17,7 @@ from containernet.energy import Energy
 from federated.net import MininetFed
 from federated.node import ClientSensor, ServerSensor
 
-from battery import iniciar_plot
+from battery import run_plot
 
 
 volume = "/flw"
@@ -77,10 +77,8 @@ def topology():
     dimage = 'ramonfontes/bmv2:lowpan'
 
     info('*** Adding Nodes...\n')
-    s1 = net.addSwitch("s1", failMode='standalone# Executa o caso de uso All')
+    s1 = net.addSwitch("s1", failMode='standalone')
     ap1 = net.addAPSensor('ap1', cls=DockerP4Sensor, ip6='fe80::1/64', panid='0xbeef',
-                          voltage=3.7,
-                          battery_capacity=10,
                           dodag_root=True, storing_mode=mode, privileged=True,
                           volumes=[path + "/:/root",
                                    "/tmp/.X11-unix:/tmp/.X11-unix:rw"],
@@ -89,8 +87,6 @@ def topology():
                           thriftport=50001,  IPBASE="172.17.0.0/24", **args)
 
     srv1 = net.addFlHost('srv1', cls=ServerSensor, script="server/server.py",
-                         voltage=3.7,
-                         battery_capacity=10,
                          args=server_args, volumes=volumes,
                          dimage='mininetfed:serversensor',
                          ip6='fe80::2/64', panid='0xbeef', trickle_t=t,
@@ -101,8 +97,8 @@ def topology():
     for i in range(11):
         clients.append(net.addSensor(f'sta{i}', privileged=True, environment={"DISPLAY": ":0"},
                                      cls=ClientSensor, script="client/client.py",
-                                     voltage=3.7,
-                                     battery_capacity=0.01,
+                                     voltage=3.7, #V
+                                     battery_capacity=15, #mAh
                                      ip6=f'fe80::{i+3}/64',
                                      numeric_id=i-1,
                                      args=client_args, volumes=volumes,
@@ -179,7 +175,8 @@ def topology():
     # Start the graph in a thread
     if '-p' not in sys.argv:
         info('*** Starting plot...\n')
-        thread_plot = threading.Thread(target=iniciar_plot, args=(clients,plot_title,), daemon=True)
+        thread_plot = threading.Thread(target=run_plot(), args=(clients, plot_title,),
+                                       daemon=True)
         thread_plot.start()
 
     info('*** Running Autostop...\n')

@@ -33,7 +33,7 @@ nodos = [
     (11.02, 0.5),
 ]
 
-def iniciar_plot(sensores,titulo="Monitoring System"):
+def run_plot(sensores,titulo="Monitoring System"):
     img = mpimg.imread('images/plant.png')
     fig, ax = plt.subplots(figsize=(12, 3), num=titulo)
     ax.imshow(img, extent=[0, 12, 0, 3])
