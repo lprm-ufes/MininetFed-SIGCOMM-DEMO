@@ -175,7 +175,7 @@ def topology():
     # Start the graph in a thread
     if '-p' not in sys.argv:
         info('*** Starting plot...\n')
-        thread_plot = threading.Thread(target=run_plot(), args=(clients, plot_title,),
+        thread_plot = threading.Thread(target=run_plot, args=(clients, plot_title,),
                                        daemon=True)
         thread_plot.start()
 
