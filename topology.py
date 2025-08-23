@@ -1,27 +1,27 @@
 import os
 import sys
 import threading
+
 from pathlib import Path
 from time import sleep
-
 from mininet.log import info, setLogLevel
 from mininet.term import makeTerm
-
 from mn_wifi.sixLoWPAN.link import LoWPAN
 from mn_wifi.energy import BitZigBeeEnergy
-
 from containernet.node import DockerP4Sensor
 from containernet.cli import CLI
 from containernet.energy import Energy
-
 from federated.net import MininetFed
 from federated.node import ClientSensor, ServerSensor
-
 from battery import run_plot
 
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 volume = "/flw"
-volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw"]
+volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw",
+           "{}/client:/client".format(current_dir), "{}/server:/server".format(current_dir)]
+
 
 experiment_config = {
     "ipBase": "10.0.0.0/24",
@@ -35,7 +35,6 @@ experiment_name = ""
 
 
 def topology():
-
     t = 5
     if '-10' in sys.argv:
         t = 10
