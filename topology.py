@@ -40,21 +40,21 @@ def topology():
         t = 10
 
     if '--all' in sys.argv or '-a' in sys.argv:
-        server_args = {"min_trainers": 11, "num_rounds": 20,
+        server_args = {"min_trainers": 11, "num_rounds": 5,
                        "stop_acc": 0.999, 'client_selector': 'All', 'aggregator': "FedAvg"}
         client_args = {"mode": 'random same_samples',
                        'num_samples': 15000, "trainer_class": "TrainerMNIST"}
         experiment_name = 'mnist_select_all_iid'
         plot_title = 'Battery Consumption Selection of all clients'
     elif '--random' in sys.argv or '-r' in sys.argv:
-        server_args = {"min_trainers": 8, "num_rounds": 20,
+        server_args = {"min_trainers": 8, "num_rounds": 5,
                        "stop_acc": 0.99, 'client_selector': 'Random', 'aggregator': "FedAvg"}
         client_args = {"mode": 'random same_samples',
                        'num_samples': 15000, "trainer_class": "TrainerMNIST"}
         experiment_name = 'mnist_select_random_5_iid'
         plot_title = 'Battery Consumption Random Client Selection'
     elif '--energy' in sys.argv or '-e' in sys.argv:
-        server_args = {"min_trainers": 8, "num_rounds": 20,
+        server_args = {"min_trainers": 8, "num_rounds": 5,
                        "stop_acc": 0.99, 'client_selector': 'LeastEnergyConsumption', 'aggregator': "FedAvg"}
         client_args = {"mode": 'random same_samples',
                        'num_samples': 15000, "trainer_class": "TrainerMNIST"}
