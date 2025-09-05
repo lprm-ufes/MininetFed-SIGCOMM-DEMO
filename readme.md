@@ -27,30 +27,17 @@ In the terminal where the command was executed, the message _Waiting for message
 
 ## Videos
 
-This video shows the execution of the experiment when all clients participate in the federated training.
+The video below shows the execution of the experiment when all clients participate in the federated training.
 
-<video width="640" height="360" controls>
-  <source src="https://github.com/lprm-ufes/MininetFed-SIGCOMM-DEMO/raw/main/videos/all.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![](https://img.youtube.com/vi/LsIwAXJ7nr0/0.jpg)](https://youtu.be/LsIwAXJ7nr0)
 
+The video below shows the case where a random subset of clients is selected to participate in each training round.
 
-This video shows the case where a random subset of clients is selected to participate in each training round.
+[![](https://img.youtube.com/vi/a2oKsO55dtc/0.jpg)](https://youtu.be/a2oKsO55dtc)
 
-<video width="640" height="360" controls>
-  <source src="https://github.com/lprm-ufes/MininetFed-SIGCOMM-DEMO/raw/main/videos/random.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+The video below demonstrates the scenario where the client selection is based on energy constraints, prioritizing devices with higher remaining energy.
 
-
-This video demonstrates the scenario where the client selection is based on energy constraints, prioritizing devices with higher remaining energy.
-
-<video width="640" height="360" controls>
-  <source src="https://github.com/lprm-ufes/MininetFed-SIGCOMM-DEMO/raw/main/videos/energy.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![](https://img.youtube.com/vi/rKgIVKnTzNI/0.jpg)](https://youtu.be/rKgIVKnTzNI)
 
 ## Paper
-
 The paper is available at https://github.com/lprm-ufes/MininetFed-SIGCOMM-DEMO/blob/main/Demo_Sigcomm_2025_FL_MininetFed.pdf
-
